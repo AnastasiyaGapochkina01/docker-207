@@ -1,0 +1,7 @@
+[backends]
+158.160.78.73 role=backend
+158.160.0.161 role=backend
+[db]
+158.160.4.118 role=db
+[balancer]
+158.160.86.66 role=proxy

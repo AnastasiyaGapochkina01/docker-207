@@ -1,0 +1,32 @@
+---
+# tasks file for setup-docker
+- name: Install additional packages
+  apt:
+    name: '{{ packages }}'
+    state: latest
+    update_cache: yes
+
+- name: Add key docker
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
+    state: present
+    filename: docker
+    update_cache: yes
+
+- name: Install Docker 
+  apt:
+    name: docker-ce
+    state: latest
+    default_release: '{{ ansible_distribution_release }}'
+    update_cache: yes
+
+- name: Restart and Enable Docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: restarted

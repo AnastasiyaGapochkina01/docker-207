@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: setup-docker
+      when: role != "proxy"
+    - role: setup-postgres
+      when: role == "db"
+    - role: setup-nginx
+      when: role == "proxy"
+    - role: setup-bookstore
+      when: role == "backend"

@@ -1,0 +1,26 @@
+---
+# tasks file for setup-bookstore
+- name: Create dir
+  file:
+    path: "{{ dir }}"
+    state: directory
+
+- name: Clone repo
+  git:
+    repo: https://gitlab.com/anestesia.loc/bookstore.git
+    dest: "{{ dir }}"
+    clone: yes
+    update: yes
+
+- name: Copy compose.yaml
+  copy:
+    src: docker-compose_bookstore.yaml
+    dest: "{{ dir }}/compose.yaml"
+
+- name: Copy envs
+  copy:
+    src: container.env
+    dest: "{{ dir }}/.env"
+
+- name: Run bookstore backend
+  command: docker compose -f {{ dir }}/compose.yaml up -d --build --force-recreate

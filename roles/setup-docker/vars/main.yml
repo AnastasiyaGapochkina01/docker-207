@@ -1,0 +1,10 @@
+---
+# vars file for setup-docker
+packages:
+  - git
+  - apt-transport-https
+  - ca-certificates
+  - wget
+  - software-properties-common
+  - gnupg2
+  - curl
